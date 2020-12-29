@@ -1,4 +1,4 @@
-/* adlist.h - A generic doubly linked list implementation
+/* adlist.h - A generic doubly linked list implementation   //一个通用的双端链表实现
  *
  * Copyright (c) 2006-2012, Salvatore Sanfilippo <antirez at gmail dot com>
  * All rights reserved.
@@ -33,24 +33,30 @@
 
 /* Node, List, and Iterator are the only data structures used currently. */
 
-typedef struct listNode {
-    struct listNode *prev;
-    struct listNode *next;
-    void *value;
+//链表节点
+typedef struct listNode
+{
+    struct listNode *prev; //前向指针
+    struct listNode *next; //后向指针
+    void *value;           //值
 } listNode;
 
-typedef struct listIter {
-    listNode *next;
-    int direction;
+//链表迭代器
+typedef struct listIter
+{
+    listNode *next; //下一个节点
+    int direction;  //方向
 } listIter;
 
-typedef struct list {
-    listNode *head;
-    listNode *tail;
-    void *(*dup)(void *ptr);
-    void (*free)(void *ptr);
-    int (*match)(void *ptr, void *key);
-    unsigned long len;
+//链表
+typedef struct list
+{
+    listNode *head;                     //头节点指针
+    listNode *tail;                     //尾节点指针
+    void *(*dup)(void *ptr);            //复制节点函数
+    void (*free)(void *ptr);            //释放节点函数
+    int (*match)(void *ptr, void *key); //比较节点函数
+    unsigned long len;                  //链表长度
 } list;
 
 /* Functions implemented as macros */
@@ -61,9 +67,9 @@ typedef struct list {
 #define listNextNode(n) ((n)->next)
 #define listNodeValue(n) ((n)->value)
 
-#define listSetDupMethod(l,m) ((l)->dup = (m))
-#define listSetFreeMethod(l,m) ((l)->free = (m))
-#define listSetMatchMethod(l,m) ((l)->match = (m))
+#define listSetDupMethod(l, m) ((l)->dup = (m))
+#define listSetFreeMethod(l, m) ((l)->free = (m))
+#define listSetMatchMethod(l, m) ((l)->match = (m))
 
 #define listGetDupMethod(l) ((l)->dup)
 #define listGetFreeMethod(l) ((l)->free)
